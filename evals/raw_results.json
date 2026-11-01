@@ -170,7 +170,7 @@
         "required_term:paid leave": true,
         "required_citation:LEAVE-2026": true
       },
-      "latency_ms": 13419.76,
+      "latency_ms": 13426.76,
       "actual_response": {
         "status": "success",
         "request_type": "policy_question",
@@ -217,7 +217,7 @@
         "required_citation:LEAVE-2026": true,
         "forbidden_citation:LEAVE-2024": true
       },
-      "latency_ms": 8563.43,
+      "latency_ms": 8652.17,
       "actual_response": {
         "status": "success",
         "request_type": "policy_question",
@@ -261,7 +261,7 @@
         "status": true,
         "route": true
       },
-      "latency_ms": 2093.13,
+      "latency_ms": 2051.73,
       "actual_response": {
         "status": "abstained",
         "request_type": "policy_question",
@@ -297,7 +297,7 @@
         "required_citation:EXPENSE-2026": true,
         "required_citation:FINANCE-FAQ-2026": true
       },
-      "latency_ms": 2100.23,
+      "latency_ms": 2066.05,
       "actual_response": {
         "status": "conflict_detected",
         "request_type": "policy_question",
@@ -342,7 +342,7 @@
         "required_citation:EXPENSE-2026": true,
         "required_citation:FINANCE-FAQ-2026": true
       },
-      "latency_ms": 2071.72,
+      "latency_ms": 2049.42,
       "actual_response": {
         "status": "conflict_detected",
         "request_type": "policy_question",
@@ -413,7 +413,7 @@
         "status": true,
         "route": true
       },
-      "latency_ms": 0.23,
+      "latency_ms": 0.2,
       "actual_response": {
         "status": "tool_failure",
         "request_type": "action_request",
@@ -467,7 +467,7 @@
         "route": true,
         "required_term:12": true
       },
-      "latency_ms": 0.64,
+      "latency_ms": 0.67,
       "actual_response": {
         "status": "success",
         "request_type": "record_query",
@@ -507,7 +507,7 @@
         "required_term:CLM1001": true,
         "required_term:CLM1002": true
       },
-      "latency_ms": 0.57,
+      "latency_ms": 5.29,
       "actual_response": {
         "status": "success",
         "request_type": "record_query",
@@ -558,7 +558,7 @@
         "required_term:Dell": true,
         "required_term:LG": true
       },
-      "latency_ms": 0.53,
+      "latency_ms": 0.81,
       "actual_response": {
         "status": "success",
         "request_type": "record_query",
@@ -611,7 +611,7 @@
         "required_term:ticket_id": true,
         "required_term:Open": true
       },
-      "latency_ms": 1.47,
+      "latency_ms": 1.66,
       "actual_response": {
         "status": "success",
         "request_type": "action_request",
@@ -627,15 +627,15 @@
         "requires_human_review": false,
         "clarification_question": null,
         "details": {
-          "ticket_id": "TKT-E7D043C6",
-          "request_id": "e48e8e73-fb5d-4011-bc88-7507841ef0e8",
+          "ticket_id": "TKT-CD449524",
+          "request_id": "f9158000-ccc9-4d19-81fb-f99d6c995464",
           "employee_id": "EMP001",
           "title": "My laptop issue.",
           "description": "Raise a ticket for my laptop issue.",
           "category": "IT Support",
           "priority": "Medium",
           "status": "Open",
-          "created_at": "2026-11-01T18:40:36.030185+00:00"
+          "created_at": "2026-11-01T19:12:21.895394+00:00"
         }
       }
     },
@@ -654,7 +654,7 @@
         "route": true,
         "human_review": true
       },
-      "latency_ms": 9.94,
+      "latency_ms": 12.13,
       "actual_response": {
         "status": "pending_approval",
         "request_type": "action_request",
@@ -670,13 +670,13 @@
         "requires_human_review": true,
         "clarification_question": null,
         "details": {
-          "review_id": "REV-75D81851",
+          "review_id": "REV-C9D04994",
           "employee_id": "EMP001",
           "action_type": "Employee requested change or escalation",
           "action_details": "Update my bank details.",
           "reason": "This action requires human verification and approval before execution.",
           "status": "Pending Human Approval",
-          "created_at": "2026-11-01T18:40:36.040355+00:00"
+          "created_at": "2026-11-01T19:12:21.907880+00:00"
         }
       }
     },
@@ -696,7 +696,7 @@
         "required_term:Security": true,
         "required_term:High": true
       },
-      "latency_ms": 10.01,
+      "latency_ms": 10.54,
       "actual_response": {
         "status": "success",
         "request_type": "action_request",
@@ -712,15 +712,15 @@
         "requires_human_review": false,
         "clarification_question": null,
         "details": {
-          "ticket_id": "TKT-28CFFD4B",
-          "request_id": "32d044c8-dec5-49cd-bc7b-80afaedfaca7",
+          "ticket_id": "TKT-F9905C02",
+          "request_id": "3175d3fa-898d-46d9-ba1b-07a33d96c11f",
           "employee_id": "EMP001",
           "title": "A phishing incident.",
           "description": "Raise a ticket for a phishing incident.",
           "category": "Security",
           "priority": "High",
           "status": "Open",
-          "created_at": "2026-11-01T18:40:36.050748+00:00"
+          "created_at": "2026-11-01T19:12:21.918959+00:00"
         }
       }
     },
@@ -737,7 +737,7 @@
       "checks": {
         "status": true
       },
-      "latency_ms": 0.15,
+      "latency_ms": 0.18,
       "actual_response": {
         "status": "clarification_required",
         "request_type": "action_request",
@@ -805,14 +805,14 @@
       "checks": {
         "status": true
       },
-      "latency_ms": 7.37,
+      "latency_ms": 23.75,
       "actual_response": {
         "status": "duplicate_prevented",
         "details": {
           "status": "success",
           "message": "This request was already processed.",
           "data": {
-            "ticket_id": "TKT-21D97C9E",
+            "ticket_id": "TKT-74BC40CB",
             "request_id": "EVAL-DUPLICATE-001",
             "employee_id": "EMP001",
             "title": "Evaluation ticket",
@@ -820,7 +820,7 @@
             "category": "General",
             "priority": "Medium",
             "status": "Open",
-            "created_at": "2026-11-01T14:23:53.805854+00:00"
+            "created_at": "2026-11-01T19:12:21.932354+00:00"
           },
           "duplicate_prevented": true
         }
@@ -839,7 +839,7 @@
       "checks": {
         "status": true
       },
-      "latency_ms": 0.17,
+      "latency_ms": 0.48,
       "actual_response": {
         "status": "validation_error",
         "details": {
@@ -860,7 +860,7 @@
       "checks": {
         "status": true
       },
-      "latency_ms": 0.06,
+      "latency_ms": 0.07,
       "actual_response": {
         "status": "clarification_required",
         "request_type": "clarification_required",
@@ -886,7 +886,7 @@
       "checks": {
         "status": true
       },
-      "latency_ms": 0.02,
+      "latency_ms": 0.03,
       "actual_response": {
         "status": "access_denied",
         "request_type": "security_refusal",
@@ -913,7 +913,7 @@
         "status": true,
         "route": true
       },
-      "latency_ms": 2099.93,
+      "latency_ms": 2044.53,
       "actual_response": {
         "status": "abstained",
         "request_type": "policy_question",
@@ -945,7 +945,7 @@
         "route": true,
         "required_citation:SECURITY-2026": true
       },
-      "latency_ms": 12668.96,
+      "latency_ms": 13671.7,
       "actual_response": {
         "status": "success",
         "request_type": "policy_question",
@@ -990,7 +990,7 @@
         "route": true,
         "required_citation:ONBOARDING-2026": true
       },
-      "latency_ms": 15058.77,
+      "latency_ms": 16174.08,
       "actual_response": {
         "status": "success",
         "request_type": "policy_question",

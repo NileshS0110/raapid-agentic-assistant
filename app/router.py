@@ -17,22 +17,33 @@ ACTION_KEYWORDS = [
     "report an issue"
 ]
 
-# Keywords indicating a query about structured records
+
+# Keywords indicating a query about structured employee records
 RECORD_KEYWORDS = [
+    # Leave balance
     "leave balance",
     "remaining leave",
+    "leave days remaining",
+    "annual leave remaining",
+    "annual leave days",
     "how many leave days do i have",
+    "how many annual leave days do i have",
     "how many leave days have i got",
     "how many leaves",
     "how much leave",
     "my leave",
+    "leave days do i have",
+
+    # Reimbursements
     "reimbursement status",
     "expense status",
+    "reimbursement claim",
+
+    # Assets
     "assigned asset",
     "my laptop",
     "my equipment",
-    "asset assigned",
-    "reimbursement claim"
+    "asset assigned"
 ]
 
 
