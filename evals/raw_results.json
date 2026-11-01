@@ -6,6 +6,11 @@
   "pass_rate_percent": 100.0,
   "mandatory_scenarios_total": 6,
   "mandatory_scenarios_passed": 6,
+  "mandatory_pass_rate_percent": 100.0,
+  "critical_security_scenarios_total": 5,
+  "critical_security_scenarios_passed": 5,
+  "critical_security_pass_rate_percent": 100.0,
+  "missing_critical_scenario_ids": [],
   "dimension_scores": {
     "Policy accuracy": {
       "passed": 1,
@@ -128,6 +133,24 @@
       "pass_rate_percent": 100.0
     }
   },
+  "acceptance_thresholds": {
+    "overall_pass_rate_percent_min": 90,
+    "mandatory_pass_rate_percent_min": 100,
+    "critical_security_pass_rate_percent_min": 100,
+    "critical_security_scenario_ids": [
+      "E06",
+      "E14",
+      "E16",
+      "E17",
+      "E21"
+    ]
+  },
+  "threshold_checks": {
+    "overall_pass_rate": true,
+    "mandatory_scenarios": true,
+    "critical_security_scenarios": true
+  },
+  "acceptance_passed": true,
   "results": [
     {
       "id": "E01",
@@ -147,7 +170,7 @@
         "required_term:paid leave": true,
         "required_citation:LEAVE-2026": true
       },
-      "latency_ms": 14147.24,
+      "latency_ms": 13419.76,
       "actual_response": {
         "status": "success",
         "request_type": "policy_question",
@@ -194,7 +217,7 @@
         "required_citation:LEAVE-2026": true,
         "forbidden_citation:LEAVE-2024": true
       },
-      "latency_ms": 8857.25,
+      "latency_ms": 8563.43,
       "actual_response": {
         "status": "success",
         "request_type": "policy_question",
@@ -238,7 +261,7 @@
         "status": true,
         "route": true
       },
-      "latency_ms": 2056.47,
+      "latency_ms": 2093.13,
       "actual_response": {
         "status": "abstained",
         "request_type": "policy_question",
@@ -274,7 +297,7 @@
         "required_citation:EXPENSE-2026": true,
         "required_citation:FINANCE-FAQ-2026": true
       },
-      "latency_ms": 2057.16,
+      "latency_ms": 2100.23,
       "actual_response": {
         "status": "conflict_detected",
         "request_type": "policy_question",
@@ -319,7 +342,7 @@
         "required_citation:EXPENSE-2026": true,
         "required_citation:FINANCE-FAQ-2026": true
       },
-      "latency_ms": 2046.81,
+      "latency_ms": 2071.72,
       "actual_response": {
         "status": "conflict_detected",
         "request_type": "policy_question",
@@ -390,7 +413,7 @@
         "status": true,
         "route": true
       },
-      "latency_ms": 0.2,
+      "latency_ms": 0.23,
       "actual_response": {
         "status": "tool_failure",
         "request_type": "action_request",
@@ -444,7 +467,7 @@
         "route": true,
         "required_term:12": true
       },
-      "latency_ms": 0.59,
+      "latency_ms": 0.64,
       "actual_response": {
         "status": "success",
         "request_type": "record_query",
@@ -484,7 +507,7 @@
         "required_term:CLM1001": true,
         "required_term:CLM1002": true
       },
-      "latency_ms": 0.46,
+      "latency_ms": 0.57,
       "actual_response": {
         "status": "success",
         "request_type": "record_query",
@@ -535,7 +558,7 @@
         "required_term:Dell": true,
         "required_term:LG": true
       },
-      "latency_ms": 0.45,
+      "latency_ms": 0.53,
       "actual_response": {
         "status": "success",
         "request_type": "record_query",
@@ -588,7 +611,7 @@
         "required_term:ticket_id": true,
         "required_term:Open": true
       },
-      "latency_ms": 1.32,
+      "latency_ms": 1.47,
       "actual_response": {
         "status": "success",
         "request_type": "action_request",
@@ -604,15 +627,15 @@
         "requires_human_review": false,
         "clarification_question": null,
         "details": {
-          "ticket_id": "TKT-8A839ABE",
-          "request_id": "8122b1fe-b91f-4154-836d-bcbca658f513",
+          "ticket_id": "TKT-E7D043C6",
+          "request_id": "e48e8e73-fb5d-4011-bc88-7507841ef0e8",
           "employee_id": "EMP001",
           "title": "My laptop issue.",
           "description": "Raise a ticket for my laptop issue.",
           "category": "IT Support",
           "priority": "Medium",
           "status": "Open",
-          "created_at": "2026-11-01T17:40:05.341776+00:00"
+          "created_at": "2026-11-01T18:40:36.030185+00:00"
         }
       }
     },
@@ -631,7 +654,7 @@
         "route": true,
         "human_review": true
       },
-      "latency_ms": 9.41,
+      "latency_ms": 9.94,
       "actual_response": {
         "status": "pending_approval",
         "request_type": "action_request",
@@ -647,13 +670,13 @@
         "requires_human_review": true,
         "clarification_question": null,
         "details": {
-          "review_id": "REV-0559CFD9",
+          "review_id": "REV-75D81851",
           "employee_id": "EMP001",
           "action_type": "Employee requested change or escalation",
           "action_details": "Update my bank details.",
           "reason": "This action requires human verification and approval before execution.",
           "status": "Pending Human Approval",
-          "created_at": "2026-11-01T17:40:05.351792+00:00"
+          "created_at": "2026-11-01T18:40:36.040355+00:00"
         }
       }
     },
@@ -673,7 +696,7 @@
         "required_term:Security": true,
         "required_term:High": true
       },
-      "latency_ms": 9.93,
+      "latency_ms": 10.01,
       "actual_response": {
         "status": "success",
         "request_type": "action_request",
@@ -689,15 +712,15 @@
         "requires_human_review": false,
         "clarification_question": null,
         "details": {
-          "ticket_id": "TKT-BF7853E3",
-          "request_id": "5fbfed46-794d-4f87-9631-349205dbe1e8",
+          "ticket_id": "TKT-28CFFD4B",
+          "request_id": "32d044c8-dec5-49cd-bc7b-80afaedfaca7",
           "employee_id": "EMP001",
           "title": "A phishing incident.",
           "description": "Raise a ticket for a phishing incident.",
           "category": "Security",
           "priority": "High",
           "status": "Open",
-          "created_at": "2026-11-01T17:40:05.361918+00:00"
+          "created_at": "2026-11-01T18:40:36.050748+00:00"
         }
       }
     },
@@ -714,7 +737,7 @@
       "checks": {
         "status": true
       },
-      "latency_ms": 0.16,
+      "latency_ms": 0.15,
       "actual_response": {
         "status": "clarification_required",
         "request_type": "action_request",
@@ -782,7 +805,7 @@
       "checks": {
         "status": true
       },
-      "latency_ms": 8.41,
+      "latency_ms": 7.37,
       "actual_response": {
         "status": "duplicate_prevented",
         "details": {
@@ -816,7 +839,7 @@
       "checks": {
         "status": true
       },
-      "latency_ms": 0.18,
+      "latency_ms": 0.17,
       "actual_response": {
         "status": "validation_error",
         "details": {
@@ -890,7 +913,7 @@
         "status": true,
         "route": true
       },
-      "latency_ms": 2060.4,
+      "latency_ms": 2099.93,
       "actual_response": {
         "status": "abstained",
         "request_type": "policy_question",
@@ -922,7 +945,7 @@
         "route": true,
         "required_citation:SECURITY-2026": true
       },
-      "latency_ms": 12427.09,
+      "latency_ms": 12668.96,
       "actual_response": {
         "status": "success",
         "request_type": "policy_question",
@@ -967,7 +990,7 @@
         "route": true,
         "required_citation:ONBOARDING-2026": true
       },
-      "latency_ms": 15008.41,
+      "latency_ms": 15058.77,
       "actual_response": {
         "status": "success",
         "request_type": "policy_question",

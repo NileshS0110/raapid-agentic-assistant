@@ -8,6 +8,8 @@
 
 The Employee AI Assistant handles three request categories:
 
+
+
 \- Policy and process questions using an internal knowledge base.
 
 \- Structured employee record queries such as leave, reimbursements and assets.
@@ -20,7 +22,7 @@ The prototype uses Python, Streamlit, Ollama with Qwen 2.5 3B, local embeddings,
 
 
 
-\## 2. Architecture and request flow
+\## 2. Architecture and Request Flow
 
 
 
@@ -34,11 +36,11 @@ The prototype uses Python, Streamlit, Ollama with Qwen 2.5 3B, local embeddings,
 
 5\. The request is directed to the relevant workflow:
 
-&#x20;  - Policy: retrieve relevant knowledge-base chunks and generate a grounded answer.
+&#x20;  - \*\*Policy:\*\* Retrieve relevant knowledge-base chunks and generate a grounded answer.
 
-&#x20;  - Record: call structured JSON-backed tools.
+&#x20;  - \*\*Record:\*\* Call structured JSON-backed tools.
 
-&#x20;  - Action: create a ticket or submit the request for human review.
+&#x20;  - \*\*Action:\*\* Create a ticket or submit the request for human review.
 
 6\. The orchestrator returns a structured response.
 
@@ -50,11 +52,11 @@ The router uses deterministic keyword and rule-based decisions rather than relyi
 
 
 
-\## 3. Retrieval and knowledge base
+\## 3. Retrieval and Knowledge Base
 
 
 
-The knowledge base contains nine Markdown documents covering leave, expenses, finance FAQs, security, onboarding, assets, remote work and travel.
+The knowledge base contains nine Markdown documents covering leave, expenses, finance, security, onboarding, assets, remote work and travel.
 
 
 
@@ -62,19 +64,19 @@ The knowledge base contains nine Markdown documents covering leave, expenses, fi
 
 \- Embeddings: Ollama `all-minilm`, 384-dimensional vectors.
 
-\- Retrieval: cosine similarity using NumPy.
+\- Retrieval: Cosine similarity using NumPy.
 
-\- Retrieval depth: top 2 chunks.
+\- Retrieval depth: Top 2 chunks.
 
-\- Version handling: documents marked superseded are filtered before ranking.
+\- Version handling: Documents marked superseded are filtered before ranking.
 
 \- Context limit: 300 words.
 
-\- Confidence threshold: 0.30; this is provisional and requires broader calibration.
+\- Confidence threshold: 0.30; provisional and requiring broader calibration.
 
 
 
-The evaluation set contains 10 manually labelled retrieval queries. At k=2, hit rate and recall are 100%, while precision is 70%. This is a small prototype benchmark, not a production-scale quality estimate.
+The evaluation set contains 10 manually labelled retrieval queries. At k=2, hit rate and recall are 100%, while precision is 70%.
 
 
 
@@ -82,19 +84,29 @@ A seeded conflict between the expense policy and finance FAQ is surfaced to the 
 
 
 
-\## 4. Structured tools, security and human review
+\## 4. Structured Tools, Security and Human Review
 
 
 
-Structured tools retrieve leave balances, reimbursement status and assigned assets from mock JSON records. At least two structured tool integrations are exercised.
+Structured tools retrieve leave balances, reimbursement status and assigned assets from mock JSON records. Additional tools support IT ticket creation and human-review submission.
 
 
 
-The prototype checks that the requested employee matches the demo session employee. Cross-employee and unauthenticated requests are denied.
+Security controls include:
 
 
 
-Ticket creation validates required fields and priority, uses request IDs to prevent duplicate creation, and handles simulated tool failures.
+\- Employee-level authorization checks.
+
+\- Cross-employee access prevention.
+
+\- Input and priority validation.
+
+\- Duplicate ticket prevention using request IDs.
+
+\- Graceful tool-failure handling.
+
+\- Human review for sensitive actions.
 
 
 
@@ -106,7 +118,45 @@ The demo employee identity is hard-coded. A production system must derive identi
 
 
 
-\## 5. Evaluation and results
+
+
+\## 5. Evaluation and Acceptance
+
+
+
+The system is evaluated using 24 deterministic test scenarios. No LLM-as-judge is used.
+
+
+
+\*\*Predefined acceptance thresholds\*\* are stored in `evals/evaluation\_thresholds.json` and enforced by the evaluator:
+
+
+
+\- Overall pass rate: at least 90%.
+
+\- Mandatory scenarios: 100%.
+
+\- Critical security scenarios: 100%.
+
+
+
+\*\*Final results:\*\*
+
+\- Overall: 24/24 passed (100%).
+
+\- Mandatory situations: 6/6 passed (100%).
+
+\- Critical security scenarios: 5/5 passed (100%).
+
+\- All acceptance thresholds passed.
+
+
+
+A deliberate regression test disabled the current-document version filter. The suite detected the issue: 23/24 scenarios passed, with superseded-policy scenario E02 failing. After restoring the filter, the suite returned to 24/24.
+
+
+
+Detailed scenario results, thresholds, retrieval metrics and regression evidence are available in the `evals/` directory.
 
 
 
@@ -115,6 +165,8 @@ The evaluation suite contains 24 scenarios and uses deterministic assertions. No
 
 
 The suite covers:
+
+
 
 \- Superseded policy handling.
 
@@ -132,19 +184,21 @@ The suite covers:
 
 
 
-Final evaluation: 24/24 passed, including all 6 mandatory situations.
+Final evaluation: \*\*24/24 passed (100%)\*\*, including all six mandatory situations.
 
 
 
-A deliberate regression disabled the superseded-document filter. The suite then fell to 23/24: the superseded-policy test failed. Restoring the filter returned the result to 24/24.
+A deliberate regression disabled the superseded-document filter. The suite then fell to 23/24: the superseded-policy test failed because the old policy could be cited. Restoring the filter returned the result to 24/24.
 
 
 
-\## 6. Performance, cost and limitations
+\## 6. Performance, Cost and Limitations
 
 
 
-Measured median end-to-end latency:
+Observed median end-to-end latency, based on five sequential runs per workflow:
+
+
 
 \- Policy question: approximately 6.08 seconds.
 
@@ -154,13 +208,31 @@ Measured median end-to-end latency:
 
 
 
-These measurements use five sequential runs per workflow and do not represent concurrent-load performance.
-
-
-
 External API cost is zero in this local prototype because inference, embeddings and storage run locally. Electricity, hardware and maintenance costs are excluded.
 
 
 
-Key limitations include small evaluation datasets, provisional retrieval threshold, local-model latency, JSON storage, fixed demo identity and limited concurrency. Production deployment would require SSO, persistent databases, monitoring, broader evaluations, load testing and stronger policy conflict governance.
+Key limitations include:
+
+
+
+\- Small knowledge base and evaluation datasets.
+
+\- Provisional retrieval confidence threshold.
+
+\- Local-model inference latency.
+
+\- JSON storage rather than production transactional databases.
+
+\- Fixed demo employee identity.
+
+\- Seeded conflict detection rather than generalized contradiction detection.
+
+\- No concurrent-load or production-scale testing.
+
+\- Manual vector-store rebuilding.
+
+
+
+Production improvements would include enterprise SSO, authenticated HR integrations, scalable storage, broader evaluation datasets, automated document version management, monitoring and a proper human-approval interface.
 

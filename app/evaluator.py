@@ -1,6 +1,7 @@
 
 import json
 import time
+import sys
 from pathlib import Path
 from collections import defaultdict
 
@@ -15,14 +16,23 @@ from app.action_tools import create_ticket
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 EVAL_FILE = BASE_DIR / "evals" / "evaluation_suite.json"
 RESULTS_FILE = BASE_DIR / "evals" / "raw_results.json"
+THRESHOLDS_FILE = BASE_DIR / "evals" / "evaluation_thresholds.json"
 
 
 def load_suite():
     """Load the evaluation scenarios."""
 
     with open(EVAL_FILE, "r", encoding="utf-8") as file:
+        return json.load(file)
+
+
+def load_thresholds():
+    """Load predefined evaluation acceptance thresholds."""
+
+    with open(THRESHOLDS_FILE, "r", encoding="utf-8") as file:
         return json.load(file)
 
 
@@ -51,13 +61,14 @@ def run_direct_tool_test(scenario):
         if tool == "create_ticket":
 
             priority = scenario.get("priority", "Medium")
+
             request_id = scenario.get(
                 "request_id",
                 "EVAL-" + str(time.time_ns())
             )
 
             # First attempt.
-            first = create_ticket(
+            create_ticket(
                 session_employee_id="EMP001",
                 title="Evaluation ticket",
                 description="Ticket created for evaluation.",
@@ -125,7 +136,7 @@ def execute_scenario(scenario):
 
         else:
 
-            # Simulate a ticketing system failure for E07.
+            # Simulate a ticketing system failure when requested.
             if scenario.get("simulate_failure"):
 
                 original_create_ticket = orchestrator.create_ticket
@@ -244,9 +255,10 @@ def check_scenario(scenario, response):
 
 
 def run_evaluation():
-    """Run the complete evaluation suite."""
+    """Run scenarios and enforce predefined acceptance thresholds."""
 
     suite = load_suite()
+    thresholds = load_thresholds()
 
     results = []
 
@@ -254,6 +266,7 @@ def run_evaluation():
     print("EMPLOYEE AI ASSISTANT - EVALUATION")
     print("=" * 75)
 
+    # Run each evaluation scenario.
     for scenario in suite["scenarios"]:
 
         scenario_id = scenario["id"]
@@ -298,7 +311,7 @@ def run_evaluation():
                 f"- {check_name}"
             )
 
-    # Aggregate metrics.
+    # Calculate overall metrics.
     total = len(results)
 
     passed_count = sum(
@@ -312,6 +325,7 @@ def run_evaluation():
         if total else 0
     )
 
+    # Calculate pass rate by evaluation dimension.
     dimension_results = defaultdict(list)
 
     for result in results:
@@ -333,6 +347,7 @@ def run_evaluation():
             )
         }
 
+    # Calculate mandatory scenario results.
     mandatory_results = [
         result for result in results
         if result["mandatory"]
@@ -343,15 +358,89 @@ def run_evaluation():
         if result["passed"]
     )
 
+    mandatory_pass_rate = (
+        mandatory_passed / len(mandatory_results) * 100
+        if mandatory_results else 0
+    )
+
+    # Calculate critical security scenario results.
+    results_by_id = {
+        result["id"]: result for result in results
+    }
+
+    critical_ids = thresholds["critical_security_scenario_ids"]
+
+    missing_critical_ids = [
+        scenario_id
+        for scenario_id in critical_ids
+        if scenario_id not in results_by_id
+    ]
+
+    critical_results = [
+        results_by_id[scenario_id]
+        for scenario_id in critical_ids
+        if scenario_id in results_by_id
+    ]
+
+    critical_passed = sum(
+        1 for result in critical_results
+        if result["passed"]
+    )
+
+    critical_pass_rate = (
+        critical_passed / len(critical_ids) * 100
+        if critical_ids else 0
+    )
+
+    # Enforce predefined acceptance thresholds.
+    threshold_checks = {
+        "overall_pass_rate": (
+            pass_rate >= thresholds["overall_pass_rate_percent_min"]
+        ),
+
+        "mandatory_scenarios": (
+            mandatory_pass_rate
+            >= thresholds["mandatory_pass_rate_percent_min"]
+            and len(mandatory_results) > 0
+        ),
+
+        "critical_security_scenarios": (
+            critical_pass_rate
+            >= thresholds["critical_security_pass_rate_percent_min"]
+            and len(missing_critical_ids) == 0
+            and len(critical_ids) > 0
+        )
+    }
+
+    acceptance_passed = all(threshold_checks.values())
+
+    # Prepare complete evaluation summary.
     summary = {
         "suite_name": suite["suite_name"],
         "total_scenarios": total,
         "passed": passed_count,
         "failed": failed_count,
         "pass_rate_percent": round(pass_rate, 2),
+
         "mandatory_scenarios_total": len(mandatory_results),
         "mandatory_scenarios_passed": mandatory_passed,
+        "mandatory_pass_rate_percent": round(
+            mandatory_pass_rate, 2
+        ),
+
+        "critical_security_scenarios_total": len(critical_ids),
+        "critical_security_scenarios_passed": critical_passed,
+        "critical_security_pass_rate_percent": round(
+            critical_pass_rate, 2
+        ),
+        "missing_critical_scenario_ids": missing_critical_ids,
+
         "dimension_scores": dimension_scores,
+
+        "acceptance_thresholds": thresholds,
+        "threshold_checks": threshold_checks,
+        "acceptance_passed": acceptance_passed,
+
         "results": results
     }
 
@@ -365,7 +454,7 @@ def run_evaluation():
             ensure_ascii=False
         )
 
-    # Print summary.
+    # Print evaluation summary.
     print("\n" + "=" * 75)
     print("EVALUATION SUMMARY")
     print("=" * 75)
@@ -377,7 +466,14 @@ def run_evaluation():
 
     print(
         f"Mandatory scenarios passed: "
-        f"{mandatory_passed}/{len(mandatory_results)}"
+        f"{mandatory_passed}/{len(mandatory_results)} "
+        f"({mandatory_pass_rate:.2f}%)"
+    )
+
+    print(
+        f"Critical security scenarios passed: "
+        f"{critical_passed}/{len(critical_ids)} "
+        f"({critical_pass_rate:.2f}%)"
     )
 
     print("\nPass rate by dimension:")
@@ -390,6 +486,23 @@ def run_evaluation():
             f"({score['pass_rate_percent']}%)"
         )
 
+    print("\nAcceptance threshold checks:")
+
+    for name, passed in threshold_checks.items():
+
+        print(
+            f"{'PASS' if passed else 'FAIL'} - {name}"
+        )
+
+    print("\n" + "=" * 75)
+
+    print(
+        "FINAL ACCEPTANCE: "
+        + ("PASS" if acceptance_passed else "FAIL")
+    )
+
+    print("=" * 75)
+
     print("\nRaw results saved to:")
     print(RESULTS_FILE)
 
@@ -398,4 +511,8 @@ def run_evaluation():
 
 if __name__ == "__main__":
 
-    run_evaluation()
+    summary = run_evaluation()
+
+    # Return a non-zero exit code if acceptance criteria fail.
+    if not summary["acceptance_passed"]:
+        sys.exit(1)

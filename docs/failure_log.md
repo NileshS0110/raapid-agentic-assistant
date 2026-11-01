@@ -1,114 +1,304 @@
-\# Failure Log — Employee AI Assistant
+\# Development Failure Log
 
+\## Employee AI Assistant – RAAPID Assignment
 
 
-This log records implementation failures, how they were identified, and the corrective actions taken.
 
+This document records significant issues encountered during development, how they were identified, their root causes, and the corrective actions taken.
 
 
-\## 1. Router did not recognize a short leave query
 
+\### 1. Deterministic router failed to recognize leave-related queries
 
 
-\*\*What happened:\*\* The deterministic router did not classify "leave days" correctly as a record query.
 
+\*\*Issue\*\*
 
 
-\*\*How it was found:\*\* A router test failed for this phrase.
 
+The initial router did not correctly classify a request such as "How many leave days do I have?" as a structured record query.
 
 
-\*\*What changed:\*\* Updated the routing keyword rules to recognize leave-related record queries.
 
+\*\*How it was identified\*\*
 
 
-\*\*Learning:\*\* Real employee requests are often short and informal. Router coverage needs to include natural variations, not just idealized phrases.
 
+An automated router test failed because the request was incorrectly routed to the policy knowledge base rather than the structured employee-record workflow.
 
 
-\## 2. Short greetings failed input validation
 
+\*\*Root cause\*\*
 
 
-\*\*What happened:\*\* Pydantic rejected a short input such as "Hi" before the router could return a clarification response.
 
+The deterministic keyword list did not include the phrase "leave days".
 
 
-\*\*How it was found:\*\* A test expecting a clarification route failed.
 
+\*\*Resolution\*\*
 
 
-\*\*What changed:\*\* Adjusted the minimum input validation so short messages can reach the deterministic clarification logic.
 
+Added the missing keyword to the record-intent detection rules and reran the router tests.
 
 
-\*\*Learning:\*\* Input validation should reject genuinely invalid input without blocking requests that the assistant can clarify.
 
+\*\*Outcome\*\*
 
 
-\## 3. Knowledge-base document encoding error
 
+The router correctly distinguishes employee-specific leave balance queries from general leave policy questions.
 
 
-\*\*What happened:\*\* The document loader raised a UnicodeDecodeError when reading Markdown files created through Windows PowerShell.
 
+\*\*Learning\*\*
 
 
-\*\*How it was found:\*\* The retrieval pipeline failed while loading the knowledge base.
 
+Deterministic routing rules need to be validated against realistic user phrasing, including synonyms and variations.
 
 
-\*\*What changed:\*\* Updated the document loader to read the files using CP1252 encoding.
 
+\### 2. Input validation prevented ambiguous requests from reaching clarification logic
 
 
-\*\*Learning:\*\* File encoding should be explicit and consistent across document creation and ingestion.
 
+\*\*Issue\*\*
 
 
-\## 4. Multi-intent detection incorrectly classified a ticket request
 
+A short greeting such as "Hi" failed request validation instead of being routed to the clarification workflow.
 
 
-\*\*What happened:\*\* A request such as "Raise a ticket for my laptop issue" was incorrectly treated as a structured asset-record query because of the phrase "my laptop".
 
+\*\*How it was identified\*\*
 
 
-\*\*How it was found:\*\* An end-to-end test exposed the incorrect routing.
 
+The router test failed before the routing function could execute.
 
 
-\*\*What changed:\*\* Refined the deterministic multi-intent and action detection rules so ticket-creation language is not incorrectly overridden by asset-related keywords.
 
+\*\*Root cause\*\*
 
 
-\*\*Learning:\*\* Routing rules must consider the user's intended action, not just isolated keywords.
 
+The Pydantic request schema initially enforced a minimum request length of three characters.
 
 
-\## 5. Deliberate regression: superseded policy filter disabled
 
+\*\*Resolution\*\*
 
 
-\*\*What happened:\*\* The current-versus-superseded document filter was deliberately disabled in the retrieval code.
 
+Changed the minimum input length to one character. The router then handles short or unclear requests through its clarification logic.
 
 
-\*\*How it was found:\*\* The 24-scenario evaluation suite was rerun.
 
+\*\*Outcome\*\*
 
 
-\*\*Result:\*\* The suite dropped from 24/24 to 23/24. Scenario E02 failed because the superseded 2024 leave policy could be cited.
 
+The application can accept short inputs and ask the employee for clarification rather than failing at the validation layer.
 
 
-\*\*What changed:\*\* Restored the superseded-document filter and reran the evaluation suite.
 
+\*\*Learning\*\*
 
 
-\*\*Final result:\*\* 24/24 scenarios passed again, including all six mandatory scenarios.
 
+Input validation and intent validation serve different purposes. Validation should reject structurally invalid input without preventing the assistant from clarifying an otherwise valid short request.
 
 
-\*\*Learning:\*\* Regression tests are essential for protecting policy-version handling. A seemingly small retrieval change can cause an outdated policy to be presented as current.
+
+\### 3. Knowledge-base documents failed to load because of text encoding
+
+
+
+\*\*Issue\*\*
+
+
+
+The document loader raised a UnicodeDecodeError while reading Markdown knowledge-base files.
+
+
+
+\*\*How it was identified\*\*
+
+
+
+The error appeared during knowledge-base loading and embedding generation.
+
+
+
+\*\*Root cause\*\*
+
+
+
+The Markdown files created through Windows PowerShell were saved using a Windows-compatible encoding rather than UTF-8.
+
+
+
+\*\*Resolution\*\*
+
+
+
+Updated the document loader to read the files using CP1252 encoding.
+
+
+
+\*\*Outcome\*\*
+
+
+
+All nine knowledge-base documents loaded successfully and were converted into nine document chunks.
+
+
+
+\*\*Learning\*\*
+
+
+
+Document ingestion must account for encoding differences, especially when documents originate from different operating systems or tools.
+
+
+
+\### 4. Multiple-intent detection incorrectly classified a ticket request
+
+
+
+\*\*Issue\*\*
+
+
+
+A request such as "Raise a ticket for my laptop issue" was initially interpreted as containing both a structured asset-record query and an action request.
+
+
+
+\*\*How it was identified\*\*
+
+
+
+The evaluation suite showed failures in the ticket creation and tool-failure scenarios.
+
+
+
+\*\*Root cause\*\*
+
+
+
+The multiple-intent detector treated phrases such as "my laptop" as evidence of a structured asset query, even when the employee was clearly asking to raise a ticket.
+
+
+
+\*\*Resolution\*\*
+
+
+
+Refined the deterministic multiple-intent rules to distinguish explicit record queries from ordinary references to devices in action requests.
+
+
+
+\*\*Outcome\*\*
+
+
+
+Ticket creation and simulated tool-failure scenarios passed the evaluation suite.
+
+
+
+\*\*Learning\*\*
+
+
+
+Keyword-based intent detection needs contextual rules. A keyword alone should not always determine the intent.
+
+
+
+\### 5. Superseded policy filter regression
+
+
+
+\*\*Issue\*\*
+
+
+
+The system was deliberately modified to disable the current-versus-superseded document filter.
+
+
+
+\*\*How it was identified\*\*
+
+
+
+The evaluation suite was rerun against the deliberately broken version. Scenario E02 failed because the response included a citation to the superseded LEAVE-2024 policy.
+
+
+
+\*\*Root cause\*\*
+
+
+
+The retrieval layer no longer excluded documents whose metadata status was marked as superseded.
+
+
+
+\*\*Resolution\*\*
+
+
+
+Restored the original current-document filter and reran the complete evaluation suite.
+
+
+
+\*\*Outcome\*\*
+
+
+
+| Evaluation run | Result |
+
+|---|---:|
+
+| Original working baseline | 24/24 passed |
+
+| Deliberately broken version | 23/24 passed |
+
+| Restored working version | 24/24 passed |
+
+
+
+The mandatory superseded-policy scenario failed when the filter was disabled and passed again after restoration.
+
+
+
+\*\*Learning\*\*
+
+
+
+A system can produce an apparently correct answer while still citing outdated information. Regression tests must validate source correctness, not just the generated answer.
+
+
+
+\## Summary
+
+
+
+The development process exposed issues across request validation, deterministic routing, document ingestion, intent classification and retrieval version control.
+
+
+
+The evaluation suite was used iteratively to identify and correct these problems.
+
+
+
+The final working implementation achieved:
+
+\- 24/24 evaluation scenarios passed.
+
+\- 6/6 mandatory scenarios passed.
+
+\- 100% overall scenario pass rate.
+
+\- Successful detection of a deliberately introduced retrieval regression.
 

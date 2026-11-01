@@ -6,6 +6,11 @@
   "pass_rate_percent": 100.0,
   "mandatory_scenarios_total": 6,
   "mandatory_scenarios_passed": 6,
+  "mandatory_pass_rate_percent": 100.0,
+  "critical_security_scenarios_total": 5,
+  "critical_security_scenarios_passed": 5,
+  "critical_security_pass_rate_percent": 100.0,
+  "missing_critical_scenario_ids": [],
   "dimension_scores": {
     "Policy accuracy": {
       "passed": 1,
@@ -128,6 +133,24 @@
       "pass_rate_percent": 100.0
     }
   },
+  "acceptance_thresholds": {
+    "overall_pass_rate_percent_min": 90,
+    "mandatory_pass_rate_percent_min": 100,
+    "critical_security_pass_rate_percent_min": 100,
+    "critical_security_scenario_ids": [
+      "E06",
+      "E14",
+      "E16",
+      "E17",
+      "E21"
+    ]
+  },
+  "threshold_checks": {
+    "overall_pass_rate": true,
+    "mandatory_scenarios": true,
+    "critical_security_scenarios": true
+  },
+  "acceptance_passed": true,
   "results": [
     {
       "id": "E01",
@@ -147,7 +170,7 @@
         "required_term:paid leave": true,
         "required_citation:LEAVE-2026": true
       },
-      "latency_ms": 14147.24,
+      "latency_ms": 14988.54,
       "actual_response": {
         "status": "success",
         "request_type": "policy_question",
@@ -194,7 +217,7 @@
         "required_citation:LEAVE-2026": true,
         "forbidden_citation:LEAVE-2024": true
       },
-      "latency_ms": 8857.25,
+      "latency_ms": 8668.8,
       "actual_response": {
         "status": "success",
         "request_type": "policy_question",
@@ -238,7 +261,7 @@
         "status": true,
         "route": true
       },
-      "latency_ms": 2056.47,
+      "latency_ms": 2067.06,
       "actual_response": {
         "status": "abstained",
         "request_type": "policy_question",
@@ -274,7 +297,7 @@
         "required_citation:EXPENSE-2026": true,
         "required_citation:FINANCE-FAQ-2026": true
       },
-      "latency_ms": 2057.16,
+      "latency_ms": 2076.05,
       "actual_response": {
         "status": "conflict_detected",
         "request_type": "policy_question",
@@ -319,7 +342,7 @@
         "required_citation:EXPENSE-2026": true,
         "required_citation:FINANCE-FAQ-2026": true
       },
-      "latency_ms": 2046.81,
+      "latency_ms": 2060.18,
       "actual_response": {
         "status": "conflict_detected",
         "request_type": "policy_question",
@@ -363,7 +386,7 @@
         "route": true,
         "forbidden_term:annual_leave_remaining": true
       },
-      "latency_ms": 0.03,
+      "latency_ms": 0.04,
       "actual_response": {
         "status": "access_denied",
         "request_type": "record_query",
@@ -390,7 +413,7 @@
         "status": true,
         "route": true
       },
-      "latency_ms": 0.2,
+      "latency_ms": 0.24,
       "actual_response": {
         "status": "tool_failure",
         "request_type": "action_request",
@@ -416,7 +439,7 @@
       "checks": {
         "status": true
       },
-      "latency_ms": 0.03,
+      "latency_ms": 0.04,
       "actual_response": {
         "status": "clarification_required",
         "request_type": "clarification_required",
@@ -444,7 +467,7 @@
         "route": true,
         "required_term:12": true
       },
-      "latency_ms": 0.59,
+      "latency_ms": 9.97,
       "actual_response": {
         "status": "success",
         "request_type": "record_query",
@@ -484,7 +507,7 @@
         "required_term:CLM1001": true,
         "required_term:CLM1002": true
       },
-      "latency_ms": 0.46,
+      "latency_ms": 8.81,
       "actual_response": {
         "status": "success",
         "request_type": "record_query",
@@ -535,7 +558,7 @@
         "required_term:Dell": true,
         "required_term:LG": true
       },
-      "latency_ms": 0.45,
+      "latency_ms": 1.62,
       "actual_response": {
         "status": "success",
         "request_type": "record_query",
@@ -588,7 +611,7 @@
         "required_term:ticket_id": true,
         "required_term:Open": true
       },
-      "latency_ms": 1.32,
+      "latency_ms": 2.22,
       "actual_response": {
         "status": "success",
         "request_type": "action_request",
@@ -604,15 +627,15 @@
         "requires_human_review": false,
         "clarification_question": null,
         "details": {
-          "ticket_id": "TKT-8A839ABE",
-          "request_id": "8122b1fe-b91f-4154-836d-bcbca658f513",
+          "ticket_id": "TKT-E823F4F5",
+          "request_id": "84a27720-f136-42a7-b7d7-35c62d366449",
           "employee_id": "EMP001",
           "title": "My laptop issue.",
           "description": "Raise a ticket for my laptop issue.",
           "category": "IT Support",
           "priority": "Medium",
           "status": "Open",
-          "created_at": "2026-11-01T17:40:05.341776+00:00"
+          "created_at": "2026-11-01T18:32:03.981610+00:00"
         }
       }
     },
@@ -631,7 +654,7 @@
         "route": true,
         "human_review": true
       },
-      "latency_ms": 9.41,
+      "latency_ms": 2.12,
       "actual_response": {
         "status": "pending_approval",
         "request_type": "action_request",
@@ -647,13 +670,13 @@
         "requires_human_review": true,
         "clarification_question": null,
         "details": {
-          "review_id": "REV-0559CFD9",
+          "review_id": "REV-382852F3",
           "employee_id": "EMP001",
           "action_type": "Employee requested change or escalation",
           "action_details": "Update my bank details.",
           "reason": "This action requires human verification and approval before execution.",
           "status": "Pending Human Approval",
-          "created_at": "2026-11-01T17:40:05.351792+00:00"
+          "created_at": "2026-11-01T18:32:03.984131+00:00"
         }
       }
     },
@@ -673,7 +696,7 @@
         "required_term:Security": true,
         "required_term:High": true
       },
-      "latency_ms": 9.93,
+      "latency_ms": 9.88,
       "actual_response": {
         "status": "success",
         "request_type": "action_request",
@@ -689,15 +712,15 @@
         "requires_human_review": false,
         "clarification_question": null,
         "details": {
-          "ticket_id": "TKT-BF7853E3",
-          "request_id": "5fbfed46-794d-4f87-9631-349205dbe1e8",
+          "ticket_id": "TKT-24A49C0D",
+          "request_id": "a2e7174e-fd18-4c81-9c51-5c1b3d8913f0",
           "employee_id": "EMP001",
           "title": "A phishing incident.",
           "description": "Raise a ticket for a phishing incident.",
           "category": "Security",
           "priority": "High",
           "status": "Open",
-          "created_at": "2026-11-01T17:40:05.361918+00:00"
+          "created_at": "2026-11-01T18:32:03.993978+00:00"
         }
       }
     },
@@ -714,7 +737,7 @@
       "checks": {
         "status": true
       },
-      "latency_ms": 0.16,
+      "latency_ms": 0.18,
       "actual_response": {
         "status": "clarification_required",
         "request_type": "action_request",
@@ -782,7 +805,7 @@
       "checks": {
         "status": true
       },
-      "latency_ms": 8.41,
+      "latency_ms": 8.83,
       "actual_response": {
         "status": "duplicate_prevented",
         "details": {
@@ -816,7 +839,7 @@
       "checks": {
         "status": true
       },
-      "latency_ms": 0.18,
+      "latency_ms": 0.17,
       "actual_response": {
         "status": "validation_error",
         "details": {
@@ -837,7 +860,7 @@
       "checks": {
         "status": true
       },
-      "latency_ms": 0.06,
+      "latency_ms": 0.07,
       "actual_response": {
         "status": "clarification_required",
         "request_type": "clarification_required",
@@ -890,7 +913,7 @@
         "status": true,
         "route": true
       },
-      "latency_ms": 2060.4,
+      "latency_ms": 2082.68,
       "actual_response": {
         "status": "abstained",
         "request_type": "policy_question",
@@ -922,7 +945,7 @@
         "route": true,
         "required_citation:SECURITY-2026": true
       },
-      "latency_ms": 12427.09,
+      "latency_ms": 12569.83,
       "actual_response": {
         "status": "success",
         "request_type": "policy_question",
@@ -967,12 +990,12 @@
         "route": true,
         "required_citation:ONBOARDING-2026": true
       },
-      "latency_ms": 15008.41,
+      "latency_ms": 24629.9,
       "actual_response": {
         "status": "success",
         "request_type": "policy_question",
         "route": "policy_rag",
-        "message": "During their first working week, a new employee should complete the onboarding checklist, which includes:\n\n- Completing personal and employment information\n- Reviewing company policies\n- Completing mandatory security training\n- Setting up corporate email and collaboration tools\n- Confirming receipt of assigned equipment\n\nFor any onboarding-related questions, employees should contact Human Resources. For IT access issues, they should report through the IT support ticketing process.",
+        "message": "During their first working week, a new employee should complete the onboarding checklist, which includes:\n\n- Completing personal and employment information\n- Reviewing company policies\n- Completing mandatory security training\n- Setting up corporate email and collaboration tools\n- Confirming receipt of assigned equipment\n\nFor any onboarding-related questions, employees should contact Human Resources. For IT access issues, they should report through the IT support ticketing process. \n\nThe Annual Leave Policy states that employees are entitled to 20 days of annual paid leave per calendar year, and leave requests should be submitted at least 3 working days before the intended leave date. Unused annual leave can be carried forward up to a maximum of 7 days, subject to manager approval. Sick leave entitlement is 6 days per calendar year. This policy replaces the 2024 Annual Leave Policy. \n\nPlease note that the context does not provide information about the leave policy beyond what is mentioned.",
         "citations": [
           {
             "document_id": "ONBOARDING-2026",
