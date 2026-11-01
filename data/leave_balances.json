@@ -1,0 +1,23 @@
+[
+  {
+    "employee_id": "EMP001",
+    "annual_leave_total": 20,
+    "annual_leave_used": 8,
+    "annual_leave_remaining": 12,
+    "sick_leave_remaining": 6
+  },
+  {
+    "employee_id": "EMP002",
+    "annual_leave_total": 20,
+    "annual_leave_used": 12,
+    "annual_leave_remaining": 8,
+    "sick_leave_remaining": 5
+  },
+  {
+    "employee_id": "EMP005",
+    "annual_leave_total": 25,
+    "annual_leave_used": 10,
+    "annual_leave_remaining": 15,
+    "sick_leave_remaining": 6
+  }
+]

@@ -1,0 +1,56 @@
+{
+  "description": "Ten labelled queries for evaluating knowledge-base retrieval quality.",
+  "retrieval_k": 2,
+  "queries": [
+    {
+      "id": "R01",
+      "query": "How many annual paid leave days can an employee take?",
+      "expected_documents": ["LEAVE-2026"]
+    },
+    {
+      "id": "R02",
+      "query": "How far in advance should I apply for annual leave, and how many days can I carry forward?",
+      "expected_documents": ["LEAVE-2026"]
+    },
+    {
+      "id": "R03",
+      "query": "What is the maximum amount I can claim for meals and what receipts are required?",
+      "expected_documents": ["EXPENSE-2026", "FINANCE-FAQ-2026"]
+    },
+    {
+      "id": "R04",
+      "query": "How long do I have to submit an expense reimbursement claim?",
+      "expected_documents": ["EXPENSE-2026", "FINANCE-FAQ-2026"]
+    },
+    {
+      "id": "R05",
+      "query": "What should I do if my company laptop is lost or stolen?",
+      "expected_documents": ["ASSET-2026", "SECURITY-2026"]
+    },
+    {
+      "id": "R06",
+      "query": "What are the rules for working remotely and using secure networks?",
+      "expected_documents": ["REMOTE-2026", "SECURITY-2026"]
+    },
+    {
+      "id": "R07",
+      "query": "Do I need manager approval before booking business travel?",
+      "expected_documents": ["TRAVEL-2026"]
+    },
+    {
+      "id": "R08",
+      "query": "What should a new employee complete during their first week?",
+      "expected_documents": ["ONBOARDING-2026"]
+    },
+    {
+      "id": "R09",
+      "query": "What should I do if I suspect that company data has been exposed?",
+      "expected_documents": ["SECURITY-2026"]
+    },
+    {
+      "id": "R10",
+      "query": "What is the current annual leave entitlement, considering the older leave policy?",
+      "expected_documents": ["LEAVE-2026"]
+    }
+  ]
+}

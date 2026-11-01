@@ -1,0 +1,26 @@
+[
+  {
+    "employee_id": "EMP001",
+    "name": "Aarav Sharma",
+    "department": "Engineering",
+    "role": "Software Engineer",
+    "manager": "EMP005",
+    "active": true
+  },
+  {
+    "employee_id": "EMP002",
+    "name": "Priya Verma",
+    "department": "Finance",
+    "role": "Financial Analyst",
+    "manager": "EMP005",
+    "active": true
+  },
+  {
+    "employee_id": "EMP005",
+    "name": "Rahul Mehta",
+    "department": "Operations",
+    "role": "Operations Manager",
+    "manager": null,
+    "active": true
+  }
+]

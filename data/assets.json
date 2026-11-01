@@ -1,0 +1,29 @@
+[
+  {
+    "asset_id": "AST1001",
+    "employee_id": "EMP001",
+    "asset_type": "Laptop",
+    "brand": "Dell",
+    "model": "Latitude 5440",
+    "serial_number": "DELL-SYN-001",
+    "status": "Assigned"
+  },
+  {
+    "asset_id": "AST1002",
+    "employee_id": "EMP001",
+    "asset_type": "Monitor",
+    "brand": "LG",
+    "model": "24-inch Monitor",
+    "serial_number": "LG-SYN-002",
+    "status": "Assigned"
+  },
+  {
+    "asset_id": "AST1003",
+    "employee_id": "EMP002",
+    "asset_type": "Laptop",
+    "brand": "HP",
+    "model": "EliteBook 840",
+    "serial_number": "HP-SYN-003",
+    "status": "Assigned"
+  }
+]

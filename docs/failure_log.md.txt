@@ -1,0 +1,168 @@
+
+# Development Failure Log
+## Employee AI Assistant – RAAPID Assignment
+
+This document records significant issues encountered during development, how they were identified, and the corrective actions taken.
+
+---
+
+### 1. Deterministic router failed to recognize leave-related queries
+
+**Issue**
+
+The initial router did not correctly classify a request such as "How many leave days do I have?" as a structured record query.
+
+**How it was identified**
+
+The automated router test failed because the request was incorrectly routed to the policy knowledge base rather than the structured employee-record tool.
+
+**Root cause**
+
+The deterministic keyword list did not include the phrase "leave days".
+
+**Resolution**
+
+Added the missing keyword to the record-intent detection rules and reran the router tests.
+
+**Outcome**
+
+The router correctly distinguishes employee-specific leave balance queries from general leave policy questions.
+
+**Learning**
+
+Deterministic routing rules need to be validated against realistic user phrasing, including synonyms and variations.
+
+---
+
+### 2. Input validation prevented ambiguous requests from reaching clarification logic
+
+**Issue**
+
+A short greeting such as "Hi" failed request validation instead of being routed to the clarification workflow.
+
+**How it was identified**
+
+The router test failed before the routing function could execute.
+
+**Root cause**
+
+The Pydantic request schema initially enforced a minimum request length of three characters.
+
+**Resolution**
+
+Changed the minimum input length to one character. The router then handles short or unclear requests through its clarification branch.
+
+**Outcome**
+
+The application can accept short inputs and ask the employee for clarification rather than failing at the validation layer.
+
+**Learning**
+
+Input validation and intent validation serve different purposes. Validation should reject structurally invalid input without preventing legitimate clarification flows.
+
+---
+
+### 3. Knowledge-base documents failed to load because of text encoding
+
+**Issue**
+
+The document loader raised a UnicodeDecodeError while reading Markdown knowledge-base files.
+
+**How it was identified**
+
+The error appeared during knowledge-base loading and embedding generation.
+
+**Root cause**
+
+The Markdown files created through Windows PowerShell were saved using a Windows-compatible encoding rather than UTF-8.
+
+**Resolution**
+
+Updated the document loader to read the files using CP1252 encoding.
+
+**Outcome**
+
+All nine knowledge-base documents loaded successfully and were converted into nine document chunks.
+
+**Learning**
+
+Document ingestion must account for encoding differences, especially when documents originate from different operating systems or authoring tools.
+
+---
+
+### 4. Multiple-intent detection incorrectly classified a ticket request
+
+**Issue**
+
+A request such as "Raise a ticket for my laptop issue" was initially interpreted as containing both a structured asset-record query and an action request.
+
+**How it was identified**
+
+The evaluation suite showed failures in the ticket creation and tool-failure scenarios.
+
+**Root cause**
+
+The multiple-intent detector treated phrases such as "my laptop" as evidence of a structured asset query, even when the employee was clearly asking to create a ticket.
+
+**Resolution**
+
+Refined the deterministic multiple-intent rules to distinguish explicit record queries from ordinary references to devices in action requests.
+
+**Outcome**
+
+Ticket creation and simulated tool-failure scenarios passed the evaluation suite.
+
+**Learning**
+
+Keyword-based intent detection needs contextual rules. A keyword alone should not always determine the intent.
+
+---
+
+### 5. Superseded policy filter regression
+
+**Issue**
+
+The system was deliberately modified to disable the current-versus-superseded document filter.
+
+**How it was identified**
+
+The evaluation suite was rerun against the deliberately broken version.
+
+Scenario E02 failed because the response included a citation to the superseded LEAVE-2024 policy.
+
+**Root cause**
+
+The retrieval layer no longer excluded documents whose metadata status was marked as superseded.
+
+**Resolution**
+
+Restored the original current-document filter and reran the complete evaluation suite.
+
+**Outcome**
+
+| Evaluation run | Result |
+|---|---:|
+| Original working baseline | 24/24 passed |
+| Deliberately broken version | 23/24 passed |
+| Restored working version | 24/24 passed |
+
+The mandatory superseded-policy scenario failed when the filter was disabled and passed again after restoration.
+
+**Learning**
+
+A system can produce an apparently correct answer while still citing outdated information. Regression tests must validate source selection and citations, not only answer text.
+
+---
+
+## Summary
+
+The development process exposed issues across request validation, deterministic routing, document ingestion, intent classification and retrieval governance.
+
+The evaluation suite was used iteratively to identify and correct these problems.
+
+The final working implementation achieved:
+
+- 24/24 evaluation scenarios passed.
+- 6/6 mandatory scenarios passed.
+- 100% overall scenario pass rate.
+- Successful detection of a deliberately introduced retrieval regression.

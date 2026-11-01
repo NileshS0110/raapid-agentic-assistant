@@ -1,0 +1,187 @@
+{
+    "total_queries": 10,
+    "retrieval_k": 2,
+    "average_precision_at_k": 0.7,
+    "average_recall_at_k": 1.0,
+    "hit_rate": 1.0,
+    "query_results": [
+        {
+            "id": "R01",
+            "query": "How many annual paid leave days can an employee take?",
+            "expected_documents": [
+                "LEAVE-2026"
+            ],
+            "retrieved_documents": [
+                "LEAVE-2026",
+                "EXPENSE-2026"
+            ],
+            "relevant_documents_found": [
+                "LEAVE-2026"
+            ],
+            "precision_at_k": 0.5,
+            "recall_at_k": 1.0,
+            "hit": true
+        },
+        {
+            "id": "R02",
+            "query": "How far in advance should I apply for annual leave, and how many days can I carry forward?",
+            "expected_documents": [
+                "LEAVE-2026"
+            ],
+            "retrieved_documents": [
+                "LEAVE-2026",
+                "TRAVEL-2026"
+            ],
+            "relevant_documents_found": [
+                "LEAVE-2026"
+            ],
+            "precision_at_k": 0.5,
+            "recall_at_k": 1.0,
+            "hit": true
+        },
+        {
+            "id": "R03",
+            "query": "What is the maximum amount I can claim for meals and what receipts are required?",
+            "expected_documents": [
+                "EXPENSE-2026",
+                "FINANCE-FAQ-2026"
+            ],
+            "retrieved_documents": [
+                "FINANCE-FAQ-2026",
+                "EXPENSE-2026"
+            ],
+            "relevant_documents_found": [
+                "EXPENSE-2026",
+                "FINANCE-FAQ-2026"
+            ],
+            "precision_at_k": 1.0,
+            "recall_at_k": 1.0,
+            "hit": true
+        },
+        {
+            "id": "R04",
+            "query": "How long do I have to submit an expense reimbursement claim?",
+            "expected_documents": [
+                "EXPENSE-2026",
+                "FINANCE-FAQ-2026"
+            ],
+            "retrieved_documents": [
+                "FINANCE-FAQ-2026",
+                "EXPENSE-2026"
+            ],
+            "relevant_documents_found": [
+                "EXPENSE-2026",
+                "FINANCE-FAQ-2026"
+            ],
+            "precision_at_k": 1.0,
+            "recall_at_k": 1.0,
+            "hit": true
+        },
+        {
+            "id": "R05",
+            "query": "What should I do if my company laptop is lost or stolen?",
+            "expected_documents": [
+                "ASSET-2026",
+                "SECURITY-2026"
+            ],
+            "retrieved_documents": [
+                "ASSET-2026",
+                "SECURITY-2026"
+            ],
+            "relevant_documents_found": [
+                "ASSET-2026",
+                "SECURITY-2026"
+            ],
+            "precision_at_k": 1.0,
+            "recall_at_k": 1.0,
+            "hit": true
+        },
+        {
+            "id": "R06",
+            "query": "What are the rules for working remotely and using secure networks?",
+            "expected_documents": [
+                "REMOTE-2026",
+                "SECURITY-2026"
+            ],
+            "retrieved_documents": [
+                "REMOTE-2026",
+                "SECURITY-2026"
+            ],
+            "relevant_documents_found": [
+                "REMOTE-2026",
+                "SECURITY-2026"
+            ],
+            "precision_at_k": 1.0,
+            "recall_at_k": 1.0,
+            "hit": true
+        },
+        {
+            "id": "R07",
+            "query": "Do I need manager approval before booking business travel?",
+            "expected_documents": [
+                "TRAVEL-2026"
+            ],
+            "retrieved_documents": [
+                "TRAVEL-2026",
+                "REMOTE-2026"
+            ],
+            "relevant_documents_found": [
+                "TRAVEL-2026"
+            ],
+            "precision_at_k": 0.5,
+            "recall_at_k": 1.0,
+            "hit": true
+        },
+        {
+            "id": "R08",
+            "query": "What should a new employee complete during their first week?",
+            "expected_documents": [
+                "ONBOARDING-2026"
+            ],
+            "retrieved_documents": [
+                "ONBOARDING-2026",
+                "LEAVE-2026"
+            ],
+            "relevant_documents_found": [
+                "ONBOARDING-2026"
+            ],
+            "precision_at_k": 0.5,
+            "recall_at_k": 1.0,
+            "hit": true
+        },
+        {
+            "id": "R09",
+            "query": "What should I do if I suspect that company data has been exposed?",
+            "expected_documents": [
+                "SECURITY-2026"
+            ],
+            "retrieved_documents": [
+                "SECURITY-2026",
+                "ASSET-2026"
+            ],
+            "relevant_documents_found": [
+                "SECURITY-2026"
+            ],
+            "precision_at_k": 0.5,
+            "recall_at_k": 1.0,
+            "hit": true
+        },
+        {
+            "id": "R10",
+            "query": "What is the current annual leave entitlement, considering the older leave policy?",
+            "expected_documents": [
+                "LEAVE-2026"
+            ],
+            "retrieved_documents": [
+                "LEAVE-2026",
+                "EXPENSE-2026"
+            ],
+            "relevant_documents_found": [
+                "LEAVE-2026"
+            ],
+            "precision_at_k": 0.5,
+            "recall_at_k": 1.0,
+            "hit": true
+        }
+    ]
+}

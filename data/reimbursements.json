@@ -1,0 +1,26 @@
+[
+  {
+    "claim_id": "CLM1001",
+    "employee_id": "EMP001",
+    "amount": 2500,
+    "category": "Travel",
+    "status": "Approved",
+    "submission_date": "2026-10-15"
+  },
+  {
+    "claim_id": "CLM1002",
+    "employee_id": "EMP001",
+    "amount": 1200,
+    "category": "Internet",
+    "status": "Pending",
+    "submission_date": "2026-10-22"
+  },
+  {
+    "claim_id": "CLM1003",
+    "employee_id": "EMP002",
+    "amount": 3500,
+    "category": "Travel",
+    "status": "Rejected",
+    "submission_date": "2026-10-18"
+  }
+]

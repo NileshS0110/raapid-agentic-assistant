@@ -1,0 +1,69 @@
+{
+    "measurement_type": "Local prototype benchmark",
+    "repeats_per_scenario": 5,
+    "results": [
+        {
+            "scenario": "policy_query",
+            "runs": 5,
+            "latency_ms": [
+                6114.03,
+                6073.03,
+                6073.21,
+                6271.66,
+                6076.59
+            ],
+            "median_latency_ms": 6076.59,
+            "worst_case_latency_ms": 6271.66,
+            "best_case_latency_ms": 6073.03,
+            "statuses": [
+                "success",
+                "success",
+                "success",
+                "success",
+                "success"
+            ]
+        },
+        {
+            "scenario": "record_query",
+            "runs": 5,
+            "latency_ms": [
+                0.91,
+                0.58,
+                0.53,
+                0.6,
+                0.5
+            ],
+            "median_latency_ms": 0.58,
+            "worst_case_latency_ms": 0.91,
+            "best_case_latency_ms": 0.5,
+            "statuses": [
+                "success",
+                "success",
+                "success",
+                "success",
+                "success"
+            ]
+        },
+        {
+            "scenario": "ticket_creation",
+            "runs": 5,
+            "latency_ms": [
+                2.67,
+                14.63,
+                9.28,
+                8.67,
+                9.41
+            ],
+            "median_latency_ms": 9.28,
+            "worst_case_latency_ms": 14.63,
+            "best_case_latency_ms": 2.67,
+            "statuses": [
+                "success",
+                "success",
+                "success",
+                "success",
+                "success"
+            ]
+        }
+    ]
+}
